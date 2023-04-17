@@ -1,2 +1,5 @@
 data/
 Pipfile.lock
+credentials.json
+token.json
+__pycache__/

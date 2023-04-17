@@ -7,20 +7,16 @@
 
 ### 0. 環境構築
 
-```
-pipenv install
-```
+- 依存ライブラリを入れる
 
-### 1. 名簿CSVを以下の形式で作成する
+    ```
+    pipenv install
+    ```
 
-```csv
-竹村 太希,ﾀｹﾑﾗ ﾋﾛｷ
-佐藤 太郎,ｻﾄｳ ﾀﾛｳ
-John McCarthy,ｼﾞｮﾝ ﾏｯｶｰｼｰ
-```
+- kekehoに連絡してGoogle APIのクレデンシャル周りを何とかする
 
-### 2. 実行
+### 1. 実行
 
 ```sh
-pipenv run python main.py [CSVファイルのパス]
+pipenv run python main.py
 ```
