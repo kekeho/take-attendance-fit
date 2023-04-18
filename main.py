@@ -82,7 +82,7 @@ def get_namelist() -> List[Name]:
 
 def set_state(n: int, attendees: List[Name]):
     try:
-        col = chr(ord('A') + n)
+        col = chr(ord('B') + n)
         spreadsheet = '1QNot72R7-oSQKcgIxkvIhFECYivaq2TJfBha4kLmJfY'  # Copy Edition
         service = build('sheets', 'v4', credentials=GOOGLE_CREDS)
         sheet = service.spreadsheets()
