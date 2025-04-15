@@ -50,27 +50,25 @@ class State(Enum):
 class Name(object):
     id: int  # zero origin
     surface: str
-    kana: str
+    roman: str  # ローマ字
     status: Optional[State]
 
-    def __init__(self, surface: str, kana: str):
+    def __init__(self, surface: str, roman: str):
         self.surface = surface
-        self.kana = kana
+        self.roman = roman
         self.status = None
 
 
 def get_namelist() -> List[Name]:
     try:
-        
-        spreadsheet = '1-xkGKjLJ4ejniLZmMK-0ypxChXaarYqM8mP6yMiDq_k'
+        spreadsheet = '1VgaJB7TZybm2Fgwub8tGVOpCXXRIPQE3mZ7dwUOwn5M'
         service = build('sheets', 'v4', credentials=GOOGLE_CREDS)
         sheet = service.spreadsheets()
         names_range = sheet.values().get(spreadsheetId=spreadsheet,
-                                    range='出席課題集計!A3:B31').execute()
+                                    range='出席課題集計!A3:B32').execute()
         
         # 行ごと取ってくる
         values = names_range.get('values', [])
-
         result = []
         for v in values:
             result.append(Name(v[0], v[1]))
@@ -83,7 +81,7 @@ def get_namelist() -> List[Name]:
 def set_state(n: int, attendees: List[Name]):
     try:
         col = chr(ord('B') + n)
-        spreadsheet = '1QNot72R7-oSQKcgIxkvIhFECYivaq2TJfBha4kLmJfY'  # Copy Edition
+        spreadsheet = '1VgaJB7TZybm2Fgwub8tGVOpCXXRIPQE3mZ7dwUOwn5M'
         service = build('sheets', 'v4', credentials=GOOGLE_CREDS)
         sheet = service.spreadsheets()
         
@@ -96,7 +94,7 @@ def set_state(n: int, attendees: List[Name]):
 
         sheet.values().update(
             spreadsheetId=spreadsheet,
-            range=f'出席課題集計!{col}3:{col}31',
+            range=f'出席課題集計!{col}3:{col}32',
             valueInputOption='RAW',
             body={'values': state_list}
         ).execute()
@@ -139,8 +137,8 @@ def main():
     if DEBUG == False:
         for name in names:
             while True:
-                print(f'{name.surface} ({name.kana})')
-                speak(name.kana)
+                print(f'{name.surface} ({name.roman})')
+                speak(name.roman)
                 result = input()
 
                 if result == 'n':
