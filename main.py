@@ -50,12 +50,12 @@ class State(Enum):
 class Name(object):
     id: int  # zero origin
     surface: str
-    roman: str  # ローマ字
+    kana: str  # かな
     status: Optional[State]
 
-    def __init__(self, surface: str, roman: str):
+    def __init__(self, surface: str, kana: str):
         self.surface = surface
-        self.roman = roman
+        self.kana = kana
         self.status = None
 
 
@@ -80,7 +80,7 @@ def get_namelist() -> List[Name]:
 
 def set_state(n: int, attendees: List[Name]):
     try:
-        col = chr(ord('B') + n)
+        col = chr(ord('C') + n)
         spreadsheet = '1VgaJB7TZybm2Fgwub8tGVOpCXXRIPQE3mZ7dwUOwn5M'
         service = build('sheets', 'v4', credentials=GOOGLE_CREDS)
         sheet = service.spreadsheets()
@@ -137,8 +137,8 @@ def main():
     if DEBUG == False:
         for name in names:
             while True:
-                print(f'{name.surface} ({name.roman})')
-                speak(name.roman)
+                print(f'{name.surface} ({name.kana})')
+                speak(name.kana)
                 result = input()
 
                 if result == 'n':
